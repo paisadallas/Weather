@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Weather</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="weather">Weather</string>
+    <string name="bt_search">Search</string>
+    <string name="add_city">City</string>
 </resources>
