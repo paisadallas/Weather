@@ -29,7 +29,7 @@ class CityFragment : Fragment() {
         FragmentCityBinding.inflate(layoutInflater)
     }
 
-     val args : CityFragmentArgs by navArgs()
+  //   val args : CityFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +44,9 @@ class CityFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        Log.d("DATA",args.nameCity)
+    //    Log.d("DATA",args.nameCity)
 
-        binding.tvCity.text = args.nameCity
+  //      binding.tvCity.text = args.nameCity
         return binding.root
     }
 

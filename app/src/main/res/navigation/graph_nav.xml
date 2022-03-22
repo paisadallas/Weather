@@ -22,9 +22,9 @@
         android:name="com.john.weather.view.CityFragment"
         android:label="fragment_city"
         tools:layout="@layout/fragment_city" >
-        <argument
-            android:name="name_city"
-            app:argType="string" />
+        <action
+            android:id="@+id/action_cityFragment_to_listFragment"
+            app:destination="@id/listFragment" />
     </fragment>
     <fragment
         android:id="@+id/listFragment"
@@ -33,6 +33,12 @@
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/action_listFragment_to_cityFragment"
-            app:destination="@id/cityFragment" />
+            app:destination="@id/cityFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/listFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_listFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 </navigation>

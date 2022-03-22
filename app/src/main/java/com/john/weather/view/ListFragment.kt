@@ -1,11 +1,20 @@
 package com.john.weather.view
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.john.weather.R
+import com.john.weather.adapter.ClickAdapterWeather
+import com.john.weather.adapter.WeatherAdapter
+import com.john.weather.databinding.FragmentListBinding
+import com.john.weather.viewmodel.ResultState
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,10 +26,27 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ListFragment : Fragment() {
+class ListFragment : BaseFragment(),ClickAdapterWeather{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+   // private lateinit var clickAdapterWeather: ClickAdapterWeather
+
+    val binding by lazy {
+        FragmentListBinding.inflate(layoutInflater)
+    }
+
+//    private val weatherAdapter by lazy {
+//        WeatherAdapter(clickAdapterWeather)
+//    }
+
+    private lateinit var  weatherAdapter : WeatherAdapter
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+      //  clickAdapterWeather = activity as ClickAdapterWeather
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,14 +54,40 @@ class ListFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        weatherAdapter = WeatherAdapter(this)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list, container, false)
+
+        binding.rvItem.apply {
+            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+            adapter = weatherAdapter
+        }
+
+        weatherViewModel.cityForecast.observe(viewLifecycleOwner, ::handleState)
+        weatherViewModel.getForecast("Atlanta")
+        return binding.root
+    }
+
+    private fun handleState(resultState: ResultState?) {
+        when(resultState){
+            is ResultState.LOADING ->{
+                Toast.makeText(requireContext(),"LAODING....",Toast.LENGTH_SHORT).show()
+            }
+            is ResultState.SUCCESS ->{
+                weatherAdapter.update(resultState.results.list)
+                Toast.makeText(requireContext(),"SUCCESSFUL....",Toast.LENGTH_SHORT).show()
+            }
+            is ResultState.ERROR ->{
+                Log.e("FORCAST",resultState.error.localizedMessage,resultState.error)
+                Toast.makeText(requireContext(),resultState.error.localizedMessage, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),"ERROR....",Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     companion object {
@@ -57,4 +109,11 @@ class ListFragment : Fragment() {
                 }
             }
     }
+
+    override fun checkWeather() {
+        Log.d("CLICK","clik")
+        findNavController().navigate(R.id.action_listFragment_to_cityFragment)
+    }
+
+
 }
