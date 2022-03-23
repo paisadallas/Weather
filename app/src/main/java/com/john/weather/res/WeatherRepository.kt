@@ -10,7 +10,6 @@ class WeatherRepositoryImp (
     override suspend fun getCityForecast(city: String): Response<Result> {
         return weatherServiceApi.getForecast(city = city)
     }
-
 }
 
 interface WeatherRepository{
