@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="title">40sp</dimen>
-    <dimen name="margin_top">30dp</dimen>
+    <dimen name="margin_top">10dp</dimen>
+    <dimen name="title_card">17sp</dimen>
 </resources>

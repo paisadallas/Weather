@@ -1,11 +1,16 @@
 package com.john.weather.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.john.weather.R
+import com.john.weather.databinding.FragmentCityBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +27,12 @@ class CityFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    val binding by lazy {
+        FragmentCityBinding.inflate(layoutInflater)
+    }
+
+     val args : CityFragmentArgs by navArgs()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,9 +45,20 @@ class CityFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_city, container, false)
+
+        binding.tvCity.text = args.data?.get(0) ?: "No info"
+        binding.tvWeather.text = args.data?.get(1) ?: "No info"
+        binding.tvPrediction.text = args.data?.get(2) ?: "No info"
+        binding.tvDescription.text=args.data?.get(3) ?: "No info"
+       // Log.d("DATA", args.data[0])
+
+       // Log.d("CITY","City Actual ${cityActual}")
+  //      binding.tvCity.text = args.nameCity
+
+
+        return binding.root
     }
+
 
     companion object {
         /**

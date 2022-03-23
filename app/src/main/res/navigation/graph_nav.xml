@@ -11,20 +11,8 @@
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
-            android:id="@+id/action_searchFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/detailFragment"
-        android:name="com.john.weather.view.DetailFragment"
-        android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" >
-        <action
-            android:id="@+id/action_detailFragment_to_cityFragment"
-            app:destination="@id/cityFragment" />
-        <action
-            android:id="@+id/action_detailFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            android:id="@+id/action_searchFragment_to_listFragment"
+            app:destination="@id/listFragment" />
     </fragment>
     <fragment
         android:id="@+id/cityFragment"
@@ -32,7 +20,30 @@
         android:label="fragment_city"
         tools:layout="@layout/fragment_city" >
         <action
-            android:id="@+id/action_cityFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            android:id="@+id/action_cityFragment_to_listFragment"
+            app:destination="@id/listFragment"
+            app:popUpTo="@id/listFragment" />
+        <argument
+            android:name="data"
+            app:argType="string[]"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.john.weather.view.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_cityFragment"
+            app:destination="@id/cityFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_listFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <argument
+            android:name="city"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

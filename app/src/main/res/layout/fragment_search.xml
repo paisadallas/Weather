@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.SearchFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -37,15 +34,49 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fcv_list"
-                android:name="com.john.weather.view.DetailFragment"
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/bt_search"
+                android:layout_margin="@dimen/margin_top"
+                android:backgroundTint="#DCF5FD"
+                android:elevation="20dp"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintBottom_toTopOf="@+id/bt_search"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_search" />
+                app:layout_constraintTop_toBottomOf="@id/et_search">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_top"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_city_found"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_top"
+                        android:text="@string/check_city"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/title" />
+
+                    <TextView
+                        android:id="@+id/tv_weather_found"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_top"
+                        android:layout_marginBottom="@dimen/margin_top"
+
+                        android:textAlignment="center"
+                        android:textSize="@dimen/title" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
 
             <Button
                 android:id="@+id/bt_search"
@@ -59,6 +90,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
 
 </FrameLayout>

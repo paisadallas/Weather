@@ -5,4 +5,6 @@
     <string name="weather">Weather</string>
     <string name="bt_search">Search</string>
     <string name="add_city">City</string>
+    <string name="details">Details</string>
+    <string name="check_city">Check!</string>
 </resources>
