@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.john.weather.R
 import com.john.weather.adapter.ClickAdapterWeather
@@ -37,6 +38,7 @@ class ListFragment : BaseFragment(),ClickAdapterWeather{
         FragmentListBinding.inflate(layoutInflater)
     }
 
+    val args : ListFragmentArgs by navArgs()
 //    private val weatherAdapter by lazy {
 //        WeatherAdapter(clickAdapterWeather)
 //    }
@@ -46,6 +48,7 @@ class ListFragment : BaseFragment(),ClickAdapterWeather{
     override fun onAttach(context: Context) {
         super.onAttach(context)
       //  clickAdapterWeather = activity as ClickAdapterWeather
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +59,8 @@ class ListFragment : BaseFragment(),ClickAdapterWeather{
         }
 
         weatherAdapter = WeatherAdapter(this)
+
+
     }
 
     override fun onCreateView(
@@ -69,7 +74,8 @@ class ListFragment : BaseFragment(),ClickAdapterWeather{
         }
 
         weatherViewModel.cityForecast.observe(viewLifecycleOwner, ::handleState)
-        weatherViewModel.getForecast("Atlanta")
+        args.city?.let { weatherViewModel.getForecast(it) }?:"No info"
+
         return binding.root
     }
 
@@ -110,9 +116,20 @@ class ListFragment : BaseFragment(),ClickAdapterWeather{
             }
     }
 
-    override fun checkWeather() {
+    override fun checkWeather(temp:String,weather:String,description:String) {
         Log.d("CLICK","clik")
-        findNavController().navigate(R.id.action_listFragment_to_cityFragment)
+
+        val data= Array<String>(4){""}
+        data[0]= args.city.toString()
+        data[1]=temp
+        data[2]=weather
+        data[3]=description
+
+        val intention = ListFragmentDirections.actionListFragmentToCityFragment(data)
+        findNavController().navigate(intention)
+
+      //  findNavController().navigate(R.id.action_listFragment_to_cityFragment)
+
     }
 
 

@@ -4,6 +4,6 @@ import androidx.navigation.NavController
 
 interface ClickAdapterWeather {
 
-    fun checkWeather()
+    fun checkWeather(temp:String,weather:String,description:String)
 
 }

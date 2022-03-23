@@ -1,9 +1,8 @@
 package com.john.weather.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.RecyclerView
 import com.john.weather.databinding.WeatherItemBinding
 import com.john.weather.model.Forecast
@@ -31,19 +30,30 @@ class WeatherAdapter(
 
     override fun onBindViewHolder(holder: WeatherHolder, position: Int) {
 
-        holder.bind(forecastList[position])
+        holder.bind(forecastList[position].main)
         holder.itemView.setOnClickListener {
-            clickAdapterWeather.checkWeather()
+            clickAdapterWeather.checkWeather(kf_to_celsius(forecastList[position].main.temp.toString()),forecastList[position].weather[0].main,forecastList[position].weather[0].description)
+                   Log.d("ENTRY_DATA",forecastList[position].weather[0].description.toString())
         }
 
+    }
+
+    private fun kf_to_celsius(kelvin: String): String {
+
+        var kelInt : Double= kelvin.toDouble()
+        var result = kelInt -(273.15)
+        result *= (1.8)
+        result += 32.0
+        val solution:Double = String.format("%.2f", result).toDouble()
+        return "$solution° F"
     }
 
     override fun getItemCount(): Int = forecastList.size
 
     class WeatherHolder(private val binding : WeatherItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(forecast: Forecast){
-//            binding.tvDetails.text = main.temp.toString()
-            binding.tvDetails.text = forecast.dt.toString()
+        fun bind(main: Main){
+            binding.tvDetails.text = main.temp.toString()
+          //  binding.tvDetails.text = forecast.dt.toString()
         }
     }
 }

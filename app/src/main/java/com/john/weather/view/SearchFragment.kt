@@ -60,6 +60,7 @@ class SearchFragment : BaseFragment() {
 
     private fun handleState(resultState: ResultState?) {
         var found:Boolean = false
+        var city = ""
         when(resultState){
             is ResultState.LOADING ->{
                 found =false
@@ -84,7 +85,10 @@ class SearchFragment : BaseFragment() {
         binding.cvCity.setOnClickListener {
             if (found){
                 Log.d("CLICK","CLICK_FOUND")
-                findNavController().navigate(R.id.action_searchFragment_to_listFragment)
+                city = binding.etSearch.text.toString()
+             //   findNavController().navigate(R.id.action_searchFragment_to_listFragment)
+                val intention = SearchFragmentDirections.actionSearchFragmentToListFragment(city)
+                findNavController().navigate(intention)
             }else{
                 Log.d("CLICK","CLICK_NO_FOUND")
             }

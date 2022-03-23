@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.john.weather.R
 import com.john.weather.databinding.FragmentCityBinding
@@ -29,7 +31,7 @@ class CityFragment : Fragment() {
         FragmentCityBinding.inflate(layoutInflater)
     }
 
-  //   val args : CityFragmentArgs by navArgs()
+     val args : CityFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,11 +46,19 @@ class CityFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-    //    Log.d("DATA",args.nameCity)
+        binding.tvCity.text = args.data?.get(0) ?: "No info"
+        binding.tvWeather.text = args.data?.get(1) ?: "No info"
+        binding.tvPrediction.text = args.data?.get(2) ?: "No info"
+        binding.tvDescription.text=args.data?.get(3) ?: "No info"
+       // Log.d("DATA", args.data[0])
 
+       // Log.d("CITY","City Actual ${cityActual}")
   //      binding.tvCity.text = args.nameCity
+
+
         return binding.root
     }
+
 
     companion object {
         /**

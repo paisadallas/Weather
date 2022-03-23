@@ -11,9 +11,6 @@
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
-            android:id="@+id/action_searchFragment_to_cityFragment"
-            app:destination="@id/cityFragment" />
-        <action
             android:id="@+id/action_searchFragment_to_listFragment"
             app:destination="@id/listFragment" />
     </fragment>
@@ -24,7 +21,12 @@
         tools:layout="@layout/fragment_city" >
         <action
             android:id="@+id/action_cityFragment_to_listFragment"
-            app:destination="@id/listFragment" />
+            app:destination="@id/listFragment"
+            app:popUpTo="@id/listFragment" />
+        <argument
+            android:name="data"
+            app:argType="string[]"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/listFragment"
@@ -34,11 +36,14 @@
         <action
             android:id="@+id/action_listFragment_to_cityFragment"
             app:destination="@id/cityFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/listFragment"
+            app:launchSingleTop="false"
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_listFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <argument
+            android:name="city"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>
