@@ -53,7 +53,7 @@ class WeatherAdapter(
     class WeatherHolder(private val binding : WeatherItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(main: Main){
             binding.tvDetails.text = main.temp.toString()
-          //  binding.tvDetails.text = forecast.dt.toString()
+
         }
     }
 }

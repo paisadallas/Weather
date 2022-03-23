@@ -16,9 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-//
-//        val navController = findNavController(R.id.graph_nav)
-//        setupActionBarWithNavController(navController)
+
     }
 
 }
